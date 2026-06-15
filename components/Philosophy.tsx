@@ -53,7 +53,7 @@ export default function Philosophy() {
           className="relative aspect-[3/4] overflow-hidden"
         >
           <Image
-            src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=800&q=80&fit=crop"
+            src="https://images.unsplash.com/photo-1540206395-68808572332f?w=800&q=80&fit=crop"
             alt="Bohème philosophy"
             fill
             className="object-cover object-center"

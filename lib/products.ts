@@ -21,7 +21,7 @@ export const products: Product[] = [
     name: 'Stone & Clay Mask',
     category: 'Face Mask',
     price: '€54',
-    imageUrl: 'https://images.unsplash.com/photo-1599305090598-fe179d501227?w=600&q=80&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1617897903246-719242758050?w=600&q=80&fit=crop',
     description: 'Kaolin and bentonite draw out impurities while minerals restore natural balance.',
   },
   {
@@ -29,7 +29,7 @@ export const products: Product[] = [
     name: 'Forest Bath Serum',
     category: 'Serum',
     price: '€92',
-    imageUrl: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=600&q=80&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=600&q=80&fit=crop',
     description: 'Shinrin-yoku in a bottle — adaptogenic forest extracts for antioxidant defence.',
   },
   {
@@ -37,7 +37,7 @@ export const products: Product[] = [
     name: 'Grounding Body Butter',
     category: 'Body Care',
     price: '€46',
-    imageUrl: 'https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=600&q=80&fit=crop',
+    imageUrl: 'https://images.unsplash.com/photo-1611080626919-7cf5a9dbab12?w=600&q=80&fit=crop',
     description: 'Shea, mango, and vetiver ground the body and deeply nourish dry skin.',
   },
   {
