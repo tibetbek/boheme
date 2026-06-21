@@ -16,26 +16,18 @@ function ProductCard({
   product: (typeof products)[0]
   index: number
 }) {
-  const handleClick = () => {
-    console.log(`Product clicked: ${product.name} — €${product.price}`)
-    // TODO: open product detail modal
-  }
-
   return (
     <motion.div
       data-cursor="product"
       role="button"
       tabIndex={0}
       aria-label={`View ${product.name}`}
-      onClick={handleClick}
-      onKeyDown={(e) => e.key === 'Enter' && handleClick()}
-      className="group relative flex-shrink-0 w-[300px] md:w-[360px] cursor-none outline-none"
+      className="group relative flex-shrink-0 w-[260px] md:w-[360px] cursor-pointer outline-none"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ delay: index * 0.08, duration: 0.8, ease }}
     >
-      {/* Image container */}
       <div className="relative aspect-[3/4] overflow-hidden bg-linen mb-5">
         <Image
           src={product.imageUrl}
@@ -44,7 +36,6 @@ function ProductCard({
           className="object-cover object-center transition-transform duration-700 ease-in-out group-hover:scale-105"
           sizes="360px"
         />
-        {/* pointer-events-none so the overlay never swallows clicks */}
         <div className="pointer-events-none absolute inset-0 bg-earth/0 group-hover:bg-earth/10 transition-colors duration-500" />
         <div className="pointer-events-none absolute top-4 left-4">
           <span className="font-dm text-[9px] tracking-[0.25em] uppercase text-white/70 bg-earth/30 backdrop-blur-sm px-2 py-1">
@@ -53,7 +44,6 @@ function ProductCard({
         </div>
       </div>
 
-      {/* Text info */}
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="font-playfair text-xl font-medium text-earth leading-tight group-hover:text-terracotta transition-colors duration-300">
@@ -78,9 +68,11 @@ export default function Products() {
     const track = trackRef.current
     if (!section || !track) return
 
+    // Skip GSAP horizontal scroll on mobile — use native touch scroll instead
+    if (window.innerWidth < 768) return
+
     gsap.registerPlugin(ScrollTrigger)
 
-    // Amount the track must travel so the last card reaches the viewport edge
     const getTravel = () =>
       Math.max(0, track.scrollWidth - window.innerWidth + 80)
 
@@ -105,8 +97,8 @@ export default function Products() {
 
   return (
     <section ref={sectionRef} className="relative bg-cream overflow-hidden">
-      {/* Section header — sits above the scrolling track */}
-      <div className="absolute top-12 left-6 md:left-16 z-10 pointer-events-none">
+      {/* Section header */}
+      <div className="absolute top-8 md:top-12 left-6 md:left-16 z-10 pointer-events-none">
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -129,11 +121,28 @@ export default function Products() {
         </div>
       </div>
 
-      {/* Full-viewport height container — GSAP pins this */}
-      <div className="h-screen flex items-center">
+      {/* Mobile: native horizontal scroll */}
+      <div className="md:hidden pt-28 pb-12">
+        <div
+          className="flex gap-5 pl-6 pr-6 overflow-x-auto snap-x snap-mandatory"
+          style={{ scrollbarWidth: 'none', WebkitOverflowScrolling: 'touch' as never }}
+        >
+          {products.map((product, i) => (
+            <div key={product.id} className="snap-start">
+              <ProductCard product={product} index={i} />
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 text-center font-dm text-[9px] tracking-[0.3em] uppercase text-earth/25">
+          Swipe to explore
+        </p>
+      </div>
+
+      {/* Desktop: GSAP pinned horizontal scroll */}
+      <div className="hidden md:flex h-screen items-center">
         <div
           ref={trackRef}
-          className="flex gap-6 md:gap-8 pl-6 md:pl-16 pr-16 will-change-transform"
+          className="flex gap-8 pl-16 pr-16 will-change-transform"
         >
           {products.map((product, i) => (
             <ProductCard key={product.id} product={product} index={i} />
@@ -141,8 +150,8 @@ export default function Products() {
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <div className="absolute bottom-8 right-8 md:right-16 flex items-center gap-3 pointer-events-none">
+      {/* Desktop scroll hint */}
+      <div className="hidden md:flex absolute bottom-8 right-16 items-center gap-3 pointer-events-none">
         <span className="font-dm text-[9px] tracking-[0.3em] uppercase text-earth/30">
           Scroll to explore
         </span>
